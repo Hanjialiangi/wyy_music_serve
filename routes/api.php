@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+ use App\Http\Controllers\Api\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+$api = app('Dingo\Api\Routing\Router');
+$api->version('v1', ['namespace' => ''], function ($api) {
+    $api->get('/shuffing/figure' ,[ImageController::class ,'getFigure']);//轮播图图片获取
+    $api->get('/song/list', [ImageController::class, 'getSongList']); //获取歌单列表
+    $api->get('/personal/send',[ImageController::class, 'getPersonalSend']);//获取私人定制
+    $api->get('/recommended/mv',[ImageController::class, 'getRecommendedMv']);//获取推荐mv
 });
